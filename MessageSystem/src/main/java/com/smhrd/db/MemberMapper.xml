@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <!-- namespace : sql태그 id를 그룹화 해주는 속성
+  					mapper.xml의 경로 작성 -->
+<mapper namespace="com.smhrd.db.MemberMapper">
+	<!-- sql문을 태그 단위로 만듦, 안쓰는데 오류가 날 태그는 주석처리 
+		sql문 끝에 ; 적지않기~~~
+		데이터를 넣어줘서 sql문 실행 : parameterType
+		결과문을 얻는 sql문 실행 : resultType
+	-->
+	<!-- mybaits-config.xml에 com.smhrd.model.MemberVO를 MemberVO로 부르기로함 -->
+	<insert id="insertMember" parameterType="MemberVO">
+		insert into member values (#{email},#{pw},#{tel},#{address})
+	</insert>
+
+	<select id="selectMember" parameterType="MemberVO" resultType="MemberVO">
+	select * from member where email=#{email} and pw=#{pw}
+	</select>
+	
+	<update id="updateMember"  parameterType="MemberVO">
+		update member set pw=#{pw} , tel=#{tel} , address=#{address}
+		where email=#{email}
+	</update>
+	<!-- 여러줄 조회해오지만 각 줄에 담긴 객체형태로 결과물을 담는다 -->
+	<select id="selectAll" resultType="MemberVO">
+		select * from member
+	</select>
+
+	<delete id="deleteMember" parameterType="String">
+		delete from member where email=#{email}
+	</delete>
+	<!-- 부분검색을 위하여 like 연산자 오라클 : %검색어% -->
+	<select id="searchMember" parameterType="String"
+	resultType="MemberVO"
+	>
+	select * from member where email like '%'||#{email}||'%'
+	</select>
+
+
+
+</mapper>

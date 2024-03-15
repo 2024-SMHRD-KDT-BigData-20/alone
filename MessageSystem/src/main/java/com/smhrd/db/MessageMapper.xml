@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.smhrd.db.MessageMapper">
+  <!-- 새로운 mapper.xml이 생기면 mybatis-config.xml로 가서 mapper 추가하기 
+  		자동으로 채워질수 있는 oracle 시퀀스 생성 후에 채울때는 시퀀스이름.nextval
+  		oracle 현재 시간을 받을 수 있는 함수 sysdate
+  -->
+  	<insert id="insertMSG" parameterType="com.smhrd.model.MessageVO">
+  	insert into web_message values
+	(idx_msg.nextval, #{sendName}, #{receiveEmail}, #{msg}, sysdate)  	
+  	</insert>
+  
+  	<select id="msglist" parameterType="String" 
+  	resultType="com.smhrd.model.MessageVO">
+  	select * from web_message where receiveEmail=#{email}
+  	</select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </mapper>
